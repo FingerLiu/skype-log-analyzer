@@ -1,4 +1,5 @@
 #-*- coding :UTF-8-*-
+import jieba
 from apptypes import skypeid_skypename_dic,id_nicknames_dic ,skypename_skypeid_dic
 #import predictionio
 #client = predictionio.#client(appkey="KaJwG2eUkmt4iTjiAHcw56hPQyW8FbeWKD5YfQAK7OldYSuvv2Sk0Wqxqa7XPkTz")
@@ -12,7 +13,7 @@ print str(cnt)+' users created.'
 print 'Creating items...\n'
 cnt=0
 for item_id in id_nicknames_dic:
-	#clien.create_item(item_id, ('guys',))
+	#client.create_item(item_id, ('guys',))
 	cnt=cnt+1
 	print 'item '+str(item_id)+' created'
 print str(cnt)+' items created .'
@@ -51,6 +52,7 @@ def get_chat_info(skypeline):
 	return skypeline
 
 #considering of effectivify sub returns after the firts talked nick name found
+#can not handle conditions contain more than 1 id .
 def get_talked_id(skypeline,id_nicknames_dic):
 	for id in id_nicknames_dic:
 		for nick_name in id_nicknames_dic[id]:
@@ -67,10 +69,19 @@ def save_pair_to_predectionio(skypeline):
 	#client.identify(user_id)
     #client.record_action_on_item("like", item_id )
 
-
+def get_talked_word(skypeline):
+	word_list=jieba.cut(skypeline,cut_all=False)
+	return word_list
+def save_words_to_predectionio(skypeline):
+	user_id=get_skype_id(get_skype_name(skypeline),skypename_skypeid_dic)
+	word_list=jieba.cut(get_chat_info(skypeline),cut_all=False)
+	client.identify(user_id)
+	for word in word_list:
+		client.record_action_on_item("like",word)
+		
 
 #def extract_key_value(src,key_checker,value_checker)
-scanner("skype.log", save_pair_to_predectionio,'gbk')
+scanner("skype.log", save_pair_to_predectionio,'utf8')
 
 #for test
 for key in skypeid_skypename_dic:
