@@ -1,4 +1,4 @@
-#-*-encoding:UTF-8-*-
+﻿#-*-encoding:UTF-8-*-
 #skype名  as uid
 skypeid_skypename_dic={
 	1:unicode('DAC-刘鹏','utf8'),
