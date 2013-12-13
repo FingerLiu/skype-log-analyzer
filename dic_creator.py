@@ -18,9 +18,9 @@ def create_dic():
 	#将分出的词加入程序专用字典
 	#去重
 def save_words_to_dic(line,out_file):
-	chart_info=get_chat_info(line)
-	print chart_info+"\n";
-	words=jieba.cut(chart_info,cut_all=False)
+	chat_info=get_chat_info(line)
+	print chat_info+"\n";
+	words=jieba.cut(chat_info,cut_all=False)
 	for word in words:
 		#if dic_filter(word):
 			#输出到字典
