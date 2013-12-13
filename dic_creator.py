@@ -8,7 +8,8 @@ def create_dic():
 			line=line.rstrip()
 			line=unicode(line,'utf8')
 			if line:
-				save_words_to_dic(line,out_file); 
+				print line.encode('utf8')
+				#save_words_to_dic(line,out_file); 
 	except Exception as err:
 		print(err)
 	finally:
